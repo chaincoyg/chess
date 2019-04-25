@@ -1,31 +1,36 @@
 package hero;
 
+import hero.base.FireBase;
 import hero.base.Hero;
+import hero.base.HeroType;
+import hero.base.WaterBase;
 import hero.highlevel.SuperFire;
 import hero.hybrid.FirePlant;
+import hero.property.DiagonalMoveable;
+import hero.property.Sacrifice;
 import javafx.scene.paint.Color;
 import logic.Cell;
 import main.Main;
-import movement.DiagonalMoveable;
 
-public class Fire extends Hero implements DiagonalMoveable {
-
+public class Fire extends FireBase implements DiagonalMoveable, Sacrifice {
+	
 	public Fire(int x, int y, Color color) {
 		super(x, y, color);
+		this.type = HeroType.FIRE;
 	}
 
 	@Override
 	public boolean canMove(int x, int y) {
 		return canMoveDiagonal(x, y);
 	}
-
+	
 	@Override
 	public boolean canKill(int x, int y) {
 		Hero hero = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y).getHero();
-		if (hero == null) {
+		if(hero == null) {
 			return false;
 		}
-		if (hero instanceof Water || hero instanceof SuperFire || hero instanceof FirePlant) {
+		if(hero instanceof WaterBase || hero instanceof SuperFire || hero instanceof FirePlant) {
 			return false;
 		}
 		return canKillDiagonal(x, y);
@@ -33,7 +38,6 @@ public class Fire extends Hero implements DiagonalMoveable {
 
 	@Override
 	public boolean canMoveDiagonal(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD) {
@@ -78,7 +82,28 @@ public class Fire extends Hero implements DiagonalMoveable {
 					}
 			}
 		}
-	return false;
+		return false;
 	}
-}
 
+	@Override
+	public boolean canBeSacrifice(HeroType heroType) {
+		return heroType == HeroType.SUPERFIRE || heroType == HeroType.FIREPLANT || heroType == HeroType.WATERFIRE;
+	}
+
+	@Override
+	public boolean canBeSacrifice(HeroType heroType1, HeroType heroType2) {
+		if(heroType2 == HeroType.FIRE && heroType1 == HeroType.SUPERFIRE) {
+			return true;
+		}
+		else if(heroType2 == HeroType.WATER && heroType1 == HeroType.WATERFIRE) {
+			return true;
+		}
+		else if(heroType2 == HeroType.PLANT && heroType1 == HeroType.FIREPLANT) {
+			return true;
+		}
+		return false;
+	}
+
+	
+
+}

@@ -1,16 +1,18 @@
 package hero;
 
 import hero.base.Hero;
+import hero.base.HeroType;
+import hero.property.DiagonalMoveable;
+import hero.property.StraightMoveable;
 import javafx.scene.paint.Color;
 import logic.Cell;
 import main.Main;
-import movement.DiagonalMoveable;
-import movement.StraightMoveable;
 
 public class Summoner extends Hero implements StraightMoveable, DiagonalMoveable{
 
 	public Summoner(int x, int y, Color color) {
 		super(x, y, color);
+		this.type = HeroType.SUMMONER;
 	}
 
 	@Override
@@ -29,7 +31,6 @@ public class Summoner extends Hero implements StraightMoveable, DiagonalMoveable
 
 	@Override
 	public boolean canMoveDiagonal(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD) {
@@ -56,12 +57,11 @@ public class Summoner extends Hero implements StraightMoveable, DiagonalMoveable
 							return true;
 					}
 		}
-	return false;
+		return false;
 	}
 
 	@Override
 	public boolean canMoveStraight(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD) {
@@ -78,7 +78,6 @@ public class Summoner extends Hero implements StraightMoveable, DiagonalMoveable
 
 	@Override
 	public boolean canKillStraight(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD && consider.getHero()!= null) {

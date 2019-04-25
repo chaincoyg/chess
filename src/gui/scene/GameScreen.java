@@ -3,8 +3,6 @@ package gui.scene;
 import gui.ActionPart;
 import gui.GamePart;
 import javafx.scene.layout.HBox;
-import logic.GameRunner;
-import main.Main;
 
 public class GameScreen extends HBox {
 	

@@ -24,7 +24,8 @@ public class Cell extends StackPane{
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		this.setOnMouseMoved(e->{
+		this.hero = null;
+		this.setOnMouseEntered(e->{
 			this.color = Color.DIMGRAY;
 			Main.gameScreen.getGamePart().getPaintPane().render();
 		});
@@ -32,8 +33,16 @@ public class Cell extends StackPane{
 			this.color = this.realColor;
 			Main.gameScreen.getGamePart().getPaintPane().render();
 		});
-		//this.setStyle("-fx-border-width: 1px;");
-		//this.setStyle("-fx-border-color: pink;");
+		this.setOnMouseClicked(e->{
+			if(this.type != Type.OUTFIELD) {
+				Main.gameRunner.clickCell(this);
+			}
+		});
+		if(!(x<=3&&Math.abs(y-4)>x)&&!(x>3&&Math.abs(y-4)>(8-x))) {
+			this.setStyle("-fx-border-width: 1px;");
+			this.setStyle("-fx-border-color: pink;");
+		}
+		
 	}
 	
 	public void setHero(Hero hero) {

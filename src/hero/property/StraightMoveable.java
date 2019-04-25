@@ -1,4 +1,4 @@
-package movement;
+package hero.property;
 
 public interface StraightMoveable {
 	boolean canKillStraight(int x,int y);

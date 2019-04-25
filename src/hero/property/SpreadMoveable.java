@@ -1,4 +1,4 @@
-package movement;
+package hero.property;
 
 public interface SpreadMoveable {
 	boolean canKillSpread(int x,int y);

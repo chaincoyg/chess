@@ -2,15 +2,19 @@ package hero.highlevel;
 
 import hero.Fire;
 import hero.Water;
+import hero.base.FireBase;
 import hero.base.Hero;
+import hero.base.HeroType;
+import hero.base.WaterBase;
 import javafx.scene.paint.Color;
 import logic.Cell;
 import main.Main;
 
-public class SuperFire extends Fire {
+public class SuperFire extends FireBase {
 
 	public SuperFire(int x, int y, Color color) {
 		super(x, y, color);
+		this.type = HeroType.SUPERFIRE;
 	}
 
 	@Override
@@ -19,15 +23,19 @@ public class SuperFire extends Fire {
 		if(hero == null) {
 			return false;
 		}
-		if(hero instanceof Water) {
+		if(hero instanceof WaterBase) {
 			return false;
 		}
 		return canKillDiagonal(x, y);
 	}
+	
+	@Override
+	public boolean canMove(int x, int y) {
+		return canMoveDiagonal(x, y);
+	}
 
 	@Override
 	public boolean canMoveDiagonal(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD) {
@@ -41,11 +49,11 @@ public class SuperFire extends Fire {
 	public boolean canKillDiagonal(int x, int y) {
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
-		if((this.getxPosition()-x==this.getyPosition()-y)||(x-this.getxPosition()==this.getyPosition()-y))
-			  if (consider.getType() != Cell.Type.OUTFIELD && consider.getHero()!= null) 
-					if (consider.getHero().getColor() != this.getColor())return true;	
+		 if (consider.getType() != Cell.Type.OUTFIELD ) {
+			if((this.getxPosition()-x==this.getyPosition()-y)||(x-this.getxPosition()==this.getyPosition()-y))
+				if (consider.getHero()!= null && consider.getHero().getColor() != this.getColor())return true;	
+		 }
 		return false;
 	}
-	
-	
+
 }

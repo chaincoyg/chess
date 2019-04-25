@@ -5,21 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
 public class Field extends GridPane {
 	
 	private static List<List<Cell> > field;
-	private static Cell selectedCell;
 	
 	public Field() {
 		super();

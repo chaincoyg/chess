@@ -3,12 +3,12 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import hero.Love;
+
 import hero.Summoner;
 import hero.base.Hero;
 import hero.base.HeroType;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
+import main.Main;
 
 public class PlayerControl {
 	private List<Hero> heroes;
@@ -16,14 +16,16 @@ public class PlayerControl {
 	private Summoner summoner;
 	private int numFire, numWater, numPlant, numLove;
 	private Status status;
-	private Hero selectedHeroToMove, selectedHeroToSummon, selectedSacrifice;
+	private Hero selectedHeroToMove, selectedSacrifice;
+	private HeroType selectedHeroToSummon;
 	
 	public enum Status{
 		NONE, SELECTHEROTOSUMMON, SELECTSACRIFICE, SELECTHEROTOMOVE, SUMMON, MOVE;
 	}
 	
-	public PlayerControl(int x, int y, Color color) {
+	public PlayerControl(int x, int y, Color color, Status status) {
 		heroes = new ArrayList<Hero>();
+		this.status = status;
 		numFire = 0;
 		numWater = 0;
 		numPlant = 0;
@@ -31,10 +33,11 @@ public class PlayerControl {
 		this.color = color;
 		summoner = new Summoner(x, y, color);
 		heroes.add(summoner);
-		
 	}
-	public void summonHero(HeroType heroType) {
-		
+	public void summonHero(int x, int y) {
+		Hero hero = selectedHeroToSummon.toHero(x, y, color);
+		heroes.add(hero);
+		Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y).setHero(hero);
 	}
 	public Summoner getSummoner() {
 		return summoner;
@@ -66,7 +69,7 @@ public class PlayerControl {
 	public Hero getSelectedHeroToMove() {
 		return selectedHeroToMove;
 	}
-	public Hero getSelectedHeroToSummon() {
+	public HeroType getSelectedHeroToSummon() {
 		return selectedHeroToSummon;
 	}
 	public Hero getSelectedSacrifice() {
@@ -90,6 +93,8 @@ public class PlayerControl {
 	public void setSelectedSacrifice(Hero selectedSacrifice) {
 		this.selectedSacrifice = selectedSacrifice;
 	}
-	
+	public void setSelectedHeroToSummon(HeroType heroType) {
+		this.selectedHeroToSummon = heroType;
+	}
 	
 }

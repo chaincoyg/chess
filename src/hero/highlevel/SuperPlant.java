@@ -35,10 +35,10 @@ public class SuperPlant extends Plant {
 			for (int i = -2; i <= 2; i++) {
 				for (int j = -2; j <= 2; j++)
 				{
-					if(1>=i&&i>=-1&&1>=j&&j>=-1) {
-						if ((x == this.getxPosition() + i) && (y == this.getyPosition() + j))return false;
+					if ((x == this.getxPosition() + i) && (y == this.getyPosition() + j)) {
+						if(1>=i&&i>=-1&&1>=j&&j>=-1) return false;
+						else if (consider.getHero() == null)return true;
 					}
-					else if (consider.getHero() == null)return true;
 				}
 			}
 		}
@@ -55,11 +55,10 @@ public class SuperPlant extends Plant {
 				for (int i = -2; i <= 2; i++) {
 					for (int j = -2; j <= 2; j++)
 					{
-						if(1>=i&&i>=-1&&1>=j&&j>=-1) {
-							if ((x == this.getxPosition() + i) && (y == this.getyPosition() + j))
-								 return false;
+						if ((x == this.getxPosition() + i) && (y == this.getyPosition() + j)) {
+							if(1>=i&&i>=-1&&1>=j&&j>=-1) return false;
+							else if (consider.getHero().getColor() != this.getColor())return true;
 						}
-						else if (consider.getHero() == null)return true;
 					}
 				}
 			}

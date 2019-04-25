@@ -1,4 +1,4 @@
-package movement;
+package hero.property;
 
 public interface DiagonalMoveable {
 	boolean canKillDiagonal(int x,int y);

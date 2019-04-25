@@ -3,23 +3,32 @@ package hero.highlevel;
 import hero.Plant;
 import hero.Water;
 import hero.base.Hero;
+import hero.base.HeroType;
+import hero.base.PlantBase;
+import hero.base.WaterBase;
 import javafx.scene.paint.Color;
 import logic.Cell;
 import main.Main;
 
-public class SuperWater extends Water {
+public class SuperWater extends WaterBase {
 
 	public SuperWater(int x, int y, Color color) {
 		super(x, y, color);
+		this.type = HeroType.SUPERWATER;
 	}
 
+	@Override
+	public boolean canMove(int x, int y) {
+		return canMoveStraight(x, y);
+	}
+	
 	@Override
 	public boolean canKill(int x, int y) {
 		Hero hero = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y).getHero();
 		if(hero == null) {
 			return false;
 		}
-		if(hero instanceof Plant) {
+		if(hero instanceof PlantBase) {
 			return false;
 		}
 		return canKillStraight(x, y);
@@ -27,7 +36,6 @@ public class SuperWater extends Water {
 
 	@Override
 	public boolean canMoveStraight(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD) {
@@ -53,7 +61,6 @@ public class SuperWater extends Water {
 
 	@Override
 	public boolean canKillStraight(int x, int y) {
-		// TODO Auto-generated method stub
 		Cell consider = Main.gameScreen.getGamePart().getLogicPane().getCellAt(x, y);
 
 		if (consider.getType() != Cell.Type.OUTFIELD && consider.getHero()!= null) {
@@ -65,7 +72,7 @@ public class SuperWater extends Water {
 				}
 			}
 
-			for (int i = 2; i <= 2; i++) {
+			for (int i = 2; i <= 11; i++) {
 				if (((x == this.getxPosition() + i) && (y == this.getyPosition()) && canMoveStraight(x-1, y))||
 					((x == this.getxPosition() - i) && (y == this.getyPosition()) && canMoveStraight(x+1, y))||
 					((x == this.getxPosition()) && (y == this.getyPosition() + i) && canMoveStraight(x, y-1))||
@@ -76,6 +83,7 @@ public class SuperWater extends Water {
 		}
 		return false;
 	}
+
 	
-	
+
 }

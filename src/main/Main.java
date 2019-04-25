@@ -2,23 +2,30 @@ package main;
 
 
 
-import gui.ActionPart;
-import gui.GamePart;
+
 import gui.scene.GameScene;
 import gui.scene.GameScreen;
 import gui.scene.HomeScreen;
+import hero.Fire;
+import hero.Plant;
+import hero.Water;
+import hero.base.FireBase;
+import hero.base.Hero;
+import hero.base.PlantBase;
+import hero.base.WaterBase;
+import hero.highlevel.SuperFire;
+import hero.highlevel.SuperPlant;
+import hero.highlevel.SuperWater;
+import hero.hybrid.FirePlant;
+import hero.hybrid.PlantWater;
+import hero.hybrid.WaterFire;
+import hero.property.DiagonalMoveable;
+import hero.property.Sacrifice;
+import hero.property.SpreadMoveable;
+import hero.property.StraightMoveable;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import logic.GameRunner;
 
 public class Main extends Application {
@@ -37,8 +44,9 @@ public class Main extends Application {
 		homeScreen = new HomeScreen();
 		gameScene = new GameScene(homeScreen);
 		stage.setScene(gameScene);
-		//stage.setResizable(false);
+		stage.setResizable(false);
+		stage.sizeToScene();
 		stage.show();
-	}
+	}	
 	
 }
